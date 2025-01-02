@@ -30,6 +30,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
+    namespace 'com.ttlock.ttlock_flutter'
+    
     compileSdkVersion 31
 
     defaultConfig {
