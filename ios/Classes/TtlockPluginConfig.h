@@ -94,6 +94,7 @@
 #define command_init_gateway @"initGateway"
 #define command_config_gateway_ip @"gatewayConfigIp"
 #define command_upgrade_gateway @"upgradeGateway"
+#define command_gateway_config_apn @"gatewayConfigApn"
 
 
 #pragma mark - 梯控
@@ -163,6 +164,31 @@
 #define command_get_all_valid_passcode @"getAllValidPasscode"
 #define command_get_all_valid_fingerprint @"getAllValidFingerprint"
 #define command_get_all_valid_card @"getAllValidIcCard"
+
+#pragma mark - 电表
+
+#define command_electric_meter_config_server @"electricMeterConfigServer"
+#define command_electric_meter_start_scan @"electricMeterStartScan"
+#define command_electric_meter_stop_scan @"electricMeterStopScan"
+#define command_electric_meter_connect @"electricMeterConnect"
+#define command_electric_meter_disconnect @"electricMeterDisconnect"
+#define command_electric_meter_init @"electricMeterInit"
+#define command_electric_meter_delete @"electricMeterDelete"
+#define command_electric_meter_set_power_on_off @"electricMeterSetPowerOnOff"
+#define command_electric_meter_set_remaining_electricity @"electricMeterSetRemainingElectricity"
+#define command_electric_meter_clear_remaining_electricity @"electricMeterClearRemainingElectricity"
+#define command_electric_meter_read_data @"electricMeterReadData"
+#define command_electric_meter_set_pay_mode @"electricMeterSetPayMode"
+#define command_electric_meter_charg @"electricMeterCharg"
+#define command_electric_meter_set_max_power @"electricMeterSetMaxPower"
+#define command_electric_meter_get_feature_value @"electricMeterGetFeatureValue"
+#define command_electric_meter_enter_upgrade_mode @"electricMeterEnterUpgradeMode"
+
+
+
+
+
+
 
 
 

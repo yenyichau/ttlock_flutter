@@ -46,6 +46,19 @@
 @property (nonatomic, strong) NSNumber *supportFunction;
 @property (nonatomic, strong) NSNumber *isSupport;
 
+//电表
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *payMode;
+@property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *clientId;
+@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSString *remainderKwh;
+@property (nonatomic, strong) NSString *chargeAmount;
+@property (nonatomic, strong) NSString *chargeKwh;
+@property (nonatomic, strong) NSNumber *maxPower;
+
+
 
 
 /*************      返回值     ****************/
@@ -131,6 +144,8 @@
 @property (nonatomic, strong) NSNumber *errorCode;
 
 @property (nonatomic, strong) NSString *faceFeatureData;
+
+@property (nonatomic, strong) NSString * apn;
 
 
 + (TtlockModel *)modelWithDict:(NSDictionary *)dict;

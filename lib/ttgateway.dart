@@ -11,6 +11,7 @@ class TTGateway {
   static const String COMMAND_UPGRADE_GATEWAY = "upgradeGateway";
 
   static const String COMMAND_CONFIG_IP = "gatewayConfigIp";
+  static const String COMMAND_CONFIG_APN = "gatewayConfigApn";
 
   static void startScan(TTGatewayScanCallback scanCallback) {
     TTLock.invoke(COMMAND_START_SCAN_GATEWAY, null, scanCallback);
@@ -29,7 +30,7 @@ class TTGateway {
   static void getNearbyWifi(TTGatewayGetAroundWifiCallback callback,
       TTGatewayFailedCallback failedCallback) {
     TTLock.invoke(COMMAND_GET_SURROUND_WIFI, null, callback,
-        fail: failedCallback);
+        fail_callback: failedCallback);
   }
 
   static void init(
@@ -45,7 +46,7 @@ class TTGateway {
     }
 
     map[TTResponse.addGatewayJsonStr] = convert.jsonEncode(map);
-    TTLock.invoke(COMMAND_INIT_GATEWAY, map, callback, fail: failedCallback);
+    TTLock.invoke(COMMAND_INIT_GATEWAY, map, callback, fail_callback: failedCallback);
   }
 
   ///[map] {"type":x, "ipAddress": "xxx", "subnetMask": xxx"", "router": "xxx", "preferredDns": "xxx", "alternateDns": "xxx"}
@@ -61,19 +62,27 @@ class TTGateway {
     TTGatewayFailedCallback failedCallback,
   ) {
     map[TTResponse.ipSettingJsonStr] = convert.jsonEncode(map);
-    TTLock.invoke(COMMAND_CONFIG_IP, map, callback, fail: failedCallback);
+    TTLock.invoke(COMMAND_CONFIG_IP, map, callback, fail_callback: failedCallback);
   }
 
   static void setGatewayEnterUpgradeMode(String mac, TTSuccessCallback callback,
       TTGatewayFailedCallback failedCallback) {
     Map map = Map();
     map["mac"] = mac;
-    TTLock.invoke(COMMAND_UPGRADE_GATEWAY, map, callback, fail: failedCallback);
+    TTLock.invoke(COMMAND_UPGRADE_GATEWAY, map, callback, fail_callback: failedCallback);
   }
 
   static void disconnect(String mac, TTSuccessCallback callback) {
     Map map = Map();
     map["mac"] = mac;
     TTLock.invoke(COMMAND_DISCONNECT_GATEWAY, map, callback);
+  }
+
+  static void configApn(String mac, String apn, TTSuccessCallback callback,
+      TTGatewayFailedCallback failedCallback) {
+    Map map = Map();
+    map["mac"] = mac;
+    map["apn"] = apn;
+    TTLock.invoke(COMMAND_CONFIG_APN, map, callback, fail_callback: failedCallback);
   }
 }

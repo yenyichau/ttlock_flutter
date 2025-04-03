@@ -22,15 +22,14 @@ class _GatewayPageState extends State<GatewayPage> {
     super.initState();
     _wifi = wifi;
     _type = type;
-
   }
 
   void _showLoading() {
-    ProgressHud.of(_context!).showLoading();
+    ProgressHud.of(_context!)!.showLoading();
   }
 
   void _showAndDismiss(ProgressHudType type, String text) {
-    ProgressHud.of(_context!).showAndDismiss(type, text);
+    ProgressHud.of(_context!)!.showAndDismiss(type, text);
   }
 
   void _initGateway_2(String? wifi, String? wifiPassword) {
@@ -42,18 +41,18 @@ class _GatewayPageState extends State<GatewayPage> {
     paramMap["wifi"] = wifi;
     paramMap["wifiPassword"] = wifiPassword;
     paramMap["type"] = _type!.index;
-    paramMap["gatewayName"] = Config.gatewayName;
-    paramMap["uid"] = Config.uid;
-    paramMap["ttlockLoginPassword"] = Config.ttlockLoginPassword;
+    paramMap["gatewayName"] = GatewayConfig.gatewayName;
+    paramMap["uid"] = GatewayConfig.uid;
+    paramMap["ttlockLoginPassword"] = GatewayConfig.ttlockLoginPassword;
     _initGateway(paramMap);
   }
 
   void _initGateway_3_4() {
     Map paramMap = Map();
     paramMap["type"] = _type!.index;
-    paramMap["gatewayName"] = Config.gatewayName;
-    paramMap["uid"] = Config.uid;
-    paramMap["ttlockLoginPassword"] = Config.ttlockLoginPassword;
+    paramMap["gatewayName"] = GatewayConfig.gatewayName;
+    paramMap["uid"] = GatewayConfig.uid;
+    paramMap["ttlockLoginPassword"] = GatewayConfig.ttlockLoginPassword;
     _initGateway(paramMap);
   }
 

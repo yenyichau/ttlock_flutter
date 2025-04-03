@@ -186,15 +186,15 @@ class _LockPageState extends State<LockPage> {
   }
 
   void _showLoading(String text) {
-    ProgressHud.of(_context!).showLoading(text: text);
+    ProgressHud.of(_context!)!.showLoading(text: text);
   }
 
   void _showSuccessAndDismiss(String text) {
-    ProgressHud.of(_context!).showSuccessAndDismiss(text: text);
+    ProgressHud.of(_context!)!.showSuccessAndDismiss(text: text);
   }
 
   void _showErrorAndDismiss(TTLockError errorCode, String errorMsg) {
-    ProgressHud.of(_context!).showErrorAndDismiss(
+    ProgressHud.of(_context!)!.showErrorAndDismiss(
         text: 'errorCode:$errorCode errorMessage:$errorMsg');
   }
 
@@ -223,7 +223,7 @@ class _LockPageState extends State<LockPage> {
         //Note: the lockData is not contain userId and valid date.
         //If you want to get lockData contain userId and valid date please get lockData from api https://open.ttlock.com/doc/api/v3/key/list
         TTLock.controlLock(lockData, TTControlAction.unlock,
-            (lockTime, electricQuantity, uniqueId) {
+            (lockTime, electricQuantity, uniqueId, lockData) {
           _showSuccessAndDismiss(
               "Unlock Success lockTime:$lockTime electricQuantity:$electricQuantity uniqueId:$uniqueId");
         }, (errorCode, errorMsg) {
