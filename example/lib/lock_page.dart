@@ -54,11 +54,11 @@ enum Command {
   clearAllPassageModes,
 
   activateLiftFloors,
-  setLiftControlableFloors,
+  setLiftControlAbleFloors,
   setLiftWorkMode,
 
   setPowerSaverWorkMode,
-  setPowerSaverControlableLock,
+  setPowerSaverControlAbleLock,
 
   // setDoorSensorSwitch,
   // getDoorSensorSwitch,
@@ -88,7 +88,8 @@ enum Command {
   addFaceData,
   modifyFace,
   deleteFace,
-  clearFace
+  clearFace,
+  setLockWorkingTime
 }
 
 class _LockPageState extends State<LockPage> {
@@ -142,10 +143,10 @@ class _LockPageState extends State<LockPage> {
     {"Add Passage Mode": Command.addPassageMode},
     {"Clear All Passage Mode": Command.clearAllPassageModes},
     {"Activate Lift Floors": Command.activateLiftFloors},
-    {"Set Lift Controlable Floors": Command.setLiftControlableFloors},
+    {"Set Lift Control Able Floors": Command.setLiftControlAbleFloors},
     {"Set Lift Work Mode": Command.setLiftWorkMode},
     {"Set Power Saver Work Mode": Command.setPowerSaverWorkMode},
-    {"Set Power Saver Controlable": Command.setPowerSaverControlableLock},
+    {"Set Power Saver Control Able": Command.setPowerSaverControlAbleLock},
     // {"Set Door Sensor Switch": Command.setDoorSensorSwitch},
     // {"Get Door Sensor Switch": Command.getDoorSensorSwitch},
     // {"Get Door Sensor State": Command.getDoorSensorState},
@@ -166,11 +167,12 @@ class _LockPageState extends State<LockPage> {
     {"Add face": Command.addFace},
     {"Modify face": Command.modifyFace},
     {"Delete Face": Command.deleteFace},
-    {"Clear Face": Command.clearFace}
+    {"Clear Face": Command.clearFace},
+    {"Set Lock Working Time": Command.setLockWorkingTime}
   ];
 
   String note =
-      'Note: You need to reset the lock befor pop current page,otherwise the lock will can\'t be initialized again';
+      'Note: You need to reset the lock before pop current page,otherwise the lock will can\'t be initialized again';
 
   String lockData = '';
   String lockMac = '';
@@ -201,7 +203,7 @@ class _LockPageState extends State<LockPage> {
   @override
   void dispose() {
     //You need to reset lock, otherwise the lock will can't be initialized again
-    TTLock.resetLock(lockData, () {}, (errorCode, errorMsg) {});
+   // TTLock.resetLock(lockData, () {}, (errorCode, errorMsg) {});
     super.dispose();
   }
 
@@ -286,7 +288,7 @@ class _LockPageState extends State<LockPage> {
         });
         break;
       case Command.customPasscode:
-        TTLock.supportFunction(TTLockFuction.managePasscode, lockData,
+        TTLock.supportFunction(TTLockFunction.managePasscode, lockData,
             (isSupport) {
           // not support
           if (!isSupport) {
@@ -305,7 +307,7 @@ class _LockPageState extends State<LockPage> {
         break;
 
       case Command.modifyPasscode:
-        TTLock.supportFunction(TTLockFuction.managePasscode, lockData,
+        TTLock.supportFunction(TTLockFunction.managePasscode, lockData,
             (isSupport) {
           // not support
           if (!isSupport) {
@@ -323,7 +325,7 @@ class _LockPageState extends State<LockPage> {
 
         break;
       case Command.deletePasscode:
-        TTLock.supportFunction(TTLockFuction.managePasscode, lockData,
+        TTLock.supportFunction(TTLockFunction.managePasscode, lockData,
             (isSupport) {
           if (isSupport) {
             TTLock.deletePasscode("7777", lockData, () {
@@ -505,7 +507,7 @@ class _LockPageState extends State<LockPage> {
 
       case Command.setLockSoundVolumeType:
         TTLock.setLockSoundWithSoundVolume(
-            TTSoundVolumeType.fouthLevel, lockData, () {
+            TTSoundVolumeType.fourthLevel, lockData, () {
           _showSuccessAndDismiss("Success");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
@@ -513,8 +515,8 @@ class _LockPageState extends State<LockPage> {
         break;
 
       case Command.getLockSoundVolumeType:
-        TTLock.getLockSoundWithSoundVolume(lockData, (ttLocksoundVolumeType) {
-          _showSuccessAndDismiss("sound volume type: $ttLocksoundVolumeType");
+        TTLock.getLockSoundWithSoundVolume(lockData, (ttLockSoundVolumeType) {
+          _showSuccessAndDismiss("sound volume type: $ttLockSoundVolumeType");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
         });
@@ -543,13 +545,13 @@ class _LockPageState extends State<LockPage> {
         TTLock.activateLift("1,2,3", lockData,
             (lockTime, electricQuantity, uniqueId) {
           _showSuccessAndDismiss(
-              "Active lift florrs success lockTime:$lockTime electricQuantity:$electricQuantity uniqueId:$uniqueId");
+              "Active lift floors success lockTime:$lockTime electricQuantity:$electricQuantity uniqueId:$uniqueId");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
         });
         break;
-      case Command.setLiftControlableFloors:
-        TTLock.setLiftControlable("3", lockData, () {
+      case Command.setLiftControlAbleFloors:
+        TTLock.setLiftControlAble("3", lockData, () {
           _showSuccessAndDismiss("Success");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
@@ -570,8 +572,8 @@ class _LockPageState extends State<LockPage> {
           _showErrorAndDismiss(errorCode, errorMsg);
         });
         break;
-      case Command.setPowerSaverControlableLock:
-        TTLock.setPowerSaverControlableLock(this.lockMac, lockData, () {
+      case Command.setPowerSaverControlAbleLock:
+        TTLock.setPowerSaverControlAbleLock(this.lockMac, lockData, () {
           _showSuccessAndDismiss("Success");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
@@ -770,6 +772,15 @@ class _LockPageState extends State<LockPage> {
       case Command.clearFace:
         TTLock.clearFace(lockData, () {
           _showSuccessAndDismiss("clear face success");
+        }, (errorCode, errorMsg) {
+          _showErrorAndDismiss(errorCode, errorMsg);
+        });
+        break;
+      case Command.setLockWorkingTime:
+        var start = DateTime(2025,8,29).millisecond;
+        var end = DateTime(2026,8,29).millisecond;
+        TTLock.setLockWorkingTime(start,end, lockData,() {
+          _showSuccessAndDismiss("set lock working time success");
         }, (errorCode, errorMsg) {
           _showErrorAndDismiss(errorCode, errorMsg);
         });

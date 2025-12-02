@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSNumber *startDate;
 @property (nonatomic, strong) NSNumber *endDate;
 @property (nonatomic, strong) NSNumber * passcodeType;
+@property (nonatomic, strong) NSNumber * type;
 @property (nonatomic, strong) NSNumber * cycleType;
 @property (nonatomic, strong) NSNumber * remoteAccessory;
 @property (nonatomic, strong) NSString * resetCode;
@@ -57,6 +58,13 @@
 @property (nonatomic, strong) NSString *chargeAmount;
 @property (nonatomic, strong) NSString *chargeKwh;
 @property (nonatomic, strong) NSNumber *maxPower;
+
+@property (nonatomic, strong) NSString *remainderM3;
+@property (nonatomic, strong) NSString *m3;
+@property (nonatomic, strong) NSString *totalM3;
+
+
+
 
 
 
@@ -147,6 +155,8 @@
 
 @property (nonatomic, strong) NSString * apn;
 
+
+@property (nonatomic, strong) NSNumber *slotNumber;
 
 + (TtlockModel *)modelWithDict:(NSDictionary *)dict;
 - (NSDictionary *)toDictionary;
